@@ -8,24 +8,16 @@ public class Board {
 		int count = 0;
 		Piece temp;
 		while (count < 6) {
-			temp = new Piece();
-			temp.color = ColorEnum.BLACK;
-			temp.piece = PieceEnum.PAWN;
+			temp = new Piece(ColorEnum.BLACK, PieceEnum.PAWN);
 			board[1][count] = temp;
-			temp = new Piece();
-			temp.color = ColorEnum.WHITE;
-			temp.piece = PieceEnum.PAWN;
+			temp = new Piece(ColorEnum.WHITE, PieceEnum.PAWN);
 			board[4][count] = temp;
 			count++;
 		}
-		temp = new Piece();
-		temp.color = ColorEnum.BLACK;
-		temp.piece = PieceEnum.KNIGHT;
+		temp = new Piece(ColorEnum.BLACK, PieceEnum.KNIGHT);
 		board[0][1] = temp;
 		board[0][4] = temp;
-		temp = new Piece();
-		temp.color = ColorEnum.WHITE;
-		temp.piece = PieceEnum.KNIGHT;
+		temp = new Piece(ColorEnum.WHITE, PieceEnum.KNIGHT);
 		board[5][1] = temp;
 		board[5][4] = temp;
 		
