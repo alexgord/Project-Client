@@ -123,10 +123,7 @@ public class Player
 				if (board.getBoard()[move.getB().getRow()][move.getB().getCollumn()].getColor() != piece.getColor())
 				{
 					//If this is one of the eight positions the knight can move to
-					if((move.getB().getCollumn() == move.getA().getCollumn() - 2 && (move.getB().getRow() == move.getA().getRow() + 1 || move.getB().getRow() == move.getA().getRow() - 1))
-							|| (move.getB().getCollumn() == move.getA().getCollumn() + 2 && (move.getB().getRow() == move.getA().getRow() + 1 || move.getB().getRow() == move.getA().getRow() - 1))
-							|| (move.getB().getCollumn() == move.getA().getCollumn() - 1 && (move.getB().getRow() == move.getA().getRow() + 2 || move.getB().getRow() == move.getA().getRow() - 2))
-							|| (move.getB().getCollumn() == move.getA().getCollumn() + 1 && (move.getB().getRow() == move.getA().getRow() + 2 || move.getB().getRow() == move.getA().getRow() - 2)))
+					if(validateKnightMove(move))
 					{
 						r = true;
 					}
@@ -136,16 +133,27 @@ public class Player
 					}
 				}
 			}
+			else
+			{
+				if(validateKnightMove(move))
+				{
+					r = true;
+				}
+				else
+				{
+					System.out.println("Sorry, you cannot move your knight there");
+				}
+			}
 		}
 		else //We have a pawn
 		{
 			//If we're not trying to capture
-			if (move.getA().getRow() == move.getB().getRow())
+			if (move.getA().getCollumn() == move.getB().getCollumn())
 			{
 				if (piece.getColor() == ColorEnum.WHITE)
 				{
 					//White pawns can only move up
-					if (move.getA().getCollumn() == move.getB().getCollumn() - 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
+					if (move.getA().getRow() == move.getB().getRow() + 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
 					{
 						r = true;
 					}
@@ -157,7 +165,7 @@ public class Player
 				else //The piece is black
 				{
 					//Black pawns can only move down
-					if (move.getA().getCollumn() == move.getB().getCollumn() + 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
+					if (move.getA().getCollumn() == move.getB().getCollumn() - 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
 					{
 						r = true;
 					}
@@ -176,12 +184,12 @@ public class Player
 					if (board.getBoard()[move.getB().getRow()][move.getB().getCollumn()].getColor() != piece.getColor())
 					{
 						//We can only capture diagonally
-						if (move.getA().getRow() == move.getA().getRow() + 1 || move.getA().getRow() == move.getA().getRow() - 1)
+						if (move.getA().getCollumn() == move.getA().getCollumn() + 1 || move.getA().getCollumn() == move.getA().getCollumn() - 1)
 						{
 							if (piece.getColor() == ColorEnum.WHITE)
 							{
 								//White pawns can only move up
-								if (move.getA().getCollumn() == move.getB().getCollumn() - 1)
+								if (move.getA().getRow() == move.getB().getRow() + 1)
 								{
 									r = true;
 								}
@@ -193,7 +201,7 @@ public class Player
 							else //The piece is black
 							{
 								//Black pawns can only move down
-								if (move.getA().getCollumn() == move.getB().getCollumn() + 1)
+								if (move.getA().getCollumn() == move.getB().getCollumn() - 1)
 								{
 									r = true;
 								}
@@ -221,5 +229,13 @@ public class Player
 		}
 
 		return r;
+	}
+	
+	public boolean validateKnightMove(Move move)
+	{
+		return (move.getB().getCollumn() == move.getA().getCollumn() - 2 && (move.getB().getRow() == move.getA().getRow() + 1 || move.getB().getRow() == move.getA().getRow() - 1))
+				|| (move.getB().getCollumn() == move.getA().getCollumn() + 2 && (move.getB().getRow() == move.getA().getRow() + 1 || move.getB().getRow() == move.getA().getRow() - 1))
+				|| (move.getB().getCollumn() == move.getA().getCollumn() - 1 && (move.getB().getRow() == move.getA().getRow() + 2 || move.getB().getRow() == move.getA().getRow() - 2))
+				|| (move.getB().getCollumn() == move.getA().getCollumn() + 1 && (move.getB().getRow() == move.getA().getRow() + 2 || move.getB().getRow() == move.getA().getRow() - 2));
 	}
 }
