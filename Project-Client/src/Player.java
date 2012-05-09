@@ -116,7 +116,26 @@ public class Player
 		//If we're dealing with a knight
 		if (piece.getPiece() == PieceEnum.KNIGHT)
 		{
-			
+			//If we're trying to capture
+			if (board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] != null)
+			{
+				//We can only capture enemy pieces
+				if (board.getBoard()[move.getB().getRow()][move.getB().getCollumn()].getColor() != piece.getColor())
+				{
+					//If this is one of the eight positions the knight can move to
+					if((move.getB().getCollumn() == move.getA().getCollumn() - 2 && (move.getB().getRow() == move.getA().getRow() + 1 || move.getB().getRow() == move.getA().getRow() - 1))
+							|| (move.getB().getCollumn() == move.getA().getCollumn() + 2 && (move.getB().getRow() == move.getA().getRow() + 1 || move.getB().getRow() == move.getA().getRow() - 1))
+							|| (move.getB().getCollumn() == move.getA().getCollumn() - 1 && (move.getB().getRow() == move.getA().getRow() + 2 || move.getB().getRow() == move.getA().getRow() - 2))
+							|| (move.getB().getCollumn() == move.getA().getCollumn() + 1 && (move.getB().getRow() == move.getA().getRow() + 2 || move.getB().getRow() == move.getA().getRow() - 2)))
+					{
+						r = true;
+					}
+					else
+					{
+						System.out.println("Sorry, you cannot move your knight there");
+					}
+				}
+			}
 		}
 		else //We have a pawn
 		{
