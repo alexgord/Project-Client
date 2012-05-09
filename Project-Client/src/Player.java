@@ -24,7 +24,7 @@ public class Player
 			//If we're trying to move from positions that are actually in the board
 			if (!(move.getA().isOutOfBounds() || move.getB().isOutOfBounds()))
 			{
-				//If we're trying to move a nonexistant piece
+				//If we're trying to move a non-existent piece
 				if (board.getBoard()[move.getA().getRow()][move.getA().getCollumn()] != null)
 				{
 					//If we're trying to move a piece that isn't ours
@@ -111,8 +111,96 @@ public class Player
 
 	public boolean PieceCanMove(Piece piece, Move move, Board board)
 	{
-		//TODO:
 		boolean r = false;
+
+		//If we're dealing with a knight
+		if (piece.getPiece() == PieceEnum.KNIGHT)
+		{
+			
+		}
+		else //We have a pawn
+		{
+			//If we're not trying to capture
+			if (move.getA().getRow() == move.getB().getRow())
+			{
+				if (piece.getColor() == ColorEnum.WHITE)
+				{
+					//White pawns can only move up
+					if (move.getA().getCollumn() == move.getB().getCollumn() - 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
+					{
+						r = true;
+					}
+					else
+					{
+						System.out.println("Sorry, you cannot move your pawn there");
+					}
+				}
+				else //The piece is black
+				{
+					//Black pawns can only move down
+					if (move.getA().getCollumn() == move.getB().getCollumn() + 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
+					{
+						r = true;
+					}
+					else
+					{
+						System.out.println("Sorry, you cannot move your pawn there");
+					}
+				}
+			}
+			else //We're trying to capture
+			{
+				//Are we really trying to capture or is the destination empty?
+				if (board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] != null)
+				{
+					//We can only capture enemy pieces
+					if (board.getBoard()[move.getB().getRow()][move.getB().getCollumn()].getColor() != piece.getColor())
+					{
+						//We can only capture diagonally
+						if (move.getA().getRow() == move.getA().getRow() + 1 || move.getA().getRow() == move.getA().getRow() - 1)
+						{
+							if (piece.getColor() == ColorEnum.WHITE)
+							{
+								//White pawns can only move up
+								if (move.getA().getCollumn() == move.getB().getCollumn() - 1)
+								{
+									r = true;
+								}
+								else
+								{
+									System.out.println("Sorry, you cannot move your pawn there");
+								}
+							}
+							else //The piece is black
+							{
+								//Black pawns can only move down
+								if (move.getA().getCollumn() == move.getB().getCollumn() + 1)
+								{
+									r = true;
+								}
+								else
+								{
+									System.out.println("Sorry, you cannot move your pawn there");
+								}
+							}
+						}
+						else
+						{
+							System.out.println("Sorry, you cannot move your pawn there");
+						}
+					}
+					else
+					{
+						System.out.println("Sorry, you cannot move your pawn there");
+					}
+				}
+				else
+				{
+					System.out.println("Sorry, you cannot move your pawn there");
+				}
+			}
+		}
+
 		return r;
 	}
 }
