@@ -36,8 +36,8 @@ public class ClientApp
 
 			// create a scanner & printstream out of the socket's I/O streams
 			ObjectInputStream socketIn = new ObjectInputStream(socket.getInputStream());
-			ObjectOutputStream socketOut = new ObjectOutputStream(new PrintStream(socket.getOutputStream()));
-
+			ObjectOutputStream socketOut = new ObjectOutputStream(socket.getOutputStream());
+			socketOut.flush();
 			String playerNum = (String) socketIn.readObject();
 			System.out.println("You are player number : " + playerNum);
 			// prepare STDIN for reading
@@ -60,7 +60,7 @@ public class ClientApp
 				input = stdin.nextLine();
 				// send the text
 				socketOut.writeObject("Player number " + playerNum + " says: " + input);
-
+				socketOut.flush();
 				// receive the echo
 				System.out.println("Waiting for player" + oppositePlayerNum + " to say something...");
 				echo = (String) socketIn.readObject();
