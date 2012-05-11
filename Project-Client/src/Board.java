@@ -1,11 +1,16 @@
+import java.util.ArrayList;
 
-public class Board {
+
+public class Board
+{
 	private Piece[][] board;
-
+	private ArrayList<Piece> graveyard;
+	
 	public Board()
 	{
 		board = new Piece[6][6];
-
+		graveyard = new ArrayList<Piece>();
+		
 		int count = 0;
 		Piece temp;
 		while (count < 6)
@@ -22,7 +27,16 @@ public class Board {
 		temp = new Piece(ColorEnum.WHITE, PieceEnum.KNIGHT);
 		board[5][1] = temp;
 		board[5][4] = temp;
+	}
 
+	public ArrayList<Piece> getGraveyard()
+	{
+		return graveyard;
+	}
+
+	public void setGraveyard(ArrayList<Piece> graveyard)
+	{
+		this.graveyard = graveyard;
 	}
 
 	public String toString()
@@ -62,8 +76,13 @@ public class Board {
 		this.board = board;
 	}
 
-	public void swapPositions(Move move)
+	public void movePiece(Move move)
 	{
-		//TODO:
+		if (board[move.getB().getRow()][move.getB().getCollumn()] != null)
+		{
+			graveyard.add(board[move.getB().getRow()][move.getB().getCollumn()]);
+		}
+		board[move.getB().getRow()][move.getB().getCollumn()] = board[move.getA().getRow()][move.getA().getCollumn()];
+		board[move.getA().getRow()][move.getA().getCollumn()] = null;
 	}
 }

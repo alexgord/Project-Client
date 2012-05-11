@@ -13,7 +13,7 @@ public class Player
 		this.board = board;
 	}
 
-	public void makeMove()
+	public Move makeMove()
 	{
 		Move move;
 
@@ -33,7 +33,7 @@ public class Player
 						if (PieceCanMove(board.getBoard()[move.getA().getRow()][move.getA().getCollumn()], move, board))
 						{
 							System.out.println("Move is valid, hooraayy!");
-							break;
+							return move;
 						}
 						else
 						{
@@ -67,7 +67,7 @@ public class Player
 		int row;
 		String collumn;
 
-		System.out.print("Enter the row of the position of the piece you would like to move: ");		
+		System.out.print("Enter the row of the position of the piece you would like to move: ");
 		row = sc.nextInt();
 
 		System.out.print("Enter the collumn of the position of the piece you would like to move: ");
@@ -75,13 +75,13 @@ public class Player
 
 		a = new BoardPosition(6 - row, getNumForCollumn(collumn));
 
-		System.out.print("Enter the row of the position you would like to move this piece to: ");		
+		System.out.print("Enter the row of the position you would like to move this piece to: ");
 		row = sc.nextInt();
 
-		System.out.print("Enter the collumn of the position you would like to move this piece to: ");		
+		System.out.print("Enter the collumn of the position you would like to move this piece to: ");
 		collumn = sc.next();
 
-		b = new BoardPosition(row, getNumForCollumn(collumn));
+		b = new BoardPosition(6 - row, getNumForCollumn(collumn));
 
 		r = new Move(a, b);
 
@@ -135,6 +135,7 @@ public class Player
 			}
 			else
 			{
+				//If this is one of the eight positions the knight can move to
 				if(validateKnightMove(move))
 				{
 					r = true;
@@ -165,7 +166,7 @@ public class Player
 				else //The piece is black
 				{
 					//Black pawns can only move down
-					if (move.getA().getCollumn() == move.getB().getCollumn() - 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
+					if (move.getA().getRow() == move.getB().getRow() - 1 && board.getBoard()[move.getB().getRow()][move.getB().getCollumn()] == null)
 					{
 						r = true;
 					}
@@ -184,7 +185,7 @@ public class Player
 					if (board.getBoard()[move.getB().getRow()][move.getB().getCollumn()].getColor() != piece.getColor())
 					{
 						//We can only capture diagonally
-						if (move.getA().getCollumn() == move.getA().getCollumn() + 1 || move.getA().getCollumn() == move.getA().getCollumn() - 1)
+						if (move.getA().getCollumn() == move.getB().getCollumn() + 1 || move.getA().getCollumn() == move.getB().getCollumn() - 1)
 						{
 							if (piece.getColor() == ColorEnum.WHITE)
 							{
@@ -201,7 +202,7 @@ public class Player
 							else //The piece is black
 							{
 								//Black pawns can only move down
-								if (move.getA().getCollumn() == move.getB().getCollumn() - 1)
+								if (move.getA().getRow() == move.getB().getRow() - 1)
 								{
 									r = true;
 								}
