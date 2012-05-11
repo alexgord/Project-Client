@@ -57,27 +57,29 @@ public class Game
 		return currPlayer.makeMove();
 	}
 	
-	public boolean isFinished()
+	public GameStatus getStatus()
 	{
-		boolean r = false;
+		GameStatus r = GameStatus.CONTINUE;
 		
 		//Have any pawns reached the enemy wall?
 		for (int i = 0; i < 6; i++)
 		{
+			//Check the White pawns
 			if (board.getBoard()[0][i] != null)
 			{
 				if (board.getBoard()[0][i].getPiece() == PieceEnum.PAWN)
 				{
-					r = true;
+					r = GameStatus.WHITEWINS;
 					break;
 				}
 			}
 			
+			//And the Black pawns
 			if (board.getBoard()[5][i] != null)
 			{
 				if (board.getBoard()[5][i].getPiece() == PieceEnum.PAWN)
 				{
-					r = true;
+					r = GameStatus.BLACKWINS;
 					break;
 				}
 			}
@@ -105,11 +107,40 @@ public class Game
 		
 		if (numDeadWhitePawns == 6 && numDeadBlackPawns == 6)
 		{
-			r = true;
+			r = GameStatus.DRAW;
 		}
 		
+		int numDeadBlackPieces = 0;
+		int numDeadWhitePieces = 0;
 		
 		//Do both players have at least one piece?
+		for (int i = 0; i < board.getGraveyard().size(); i++)
+		{
+			if (board.getGraveyard().get(i).getColor() == ColorEnum.BLACK)
+			{
+				numDeadBlackPieces++;
+			}
+			else
+			{
+				if (board.getGraveyard().get(i).getColor() == ColorEnum.WHITE)
+				{
+					numDeadWhitePieces++;
+				}
+			}
+		}
+		
+		if (numDeadWhitePieces == 8)
+		{
+			r = GameStatus.BLACKWINS;
+		}
+		else
+		{
+			if (numDeadBlackPieces == 8)
+			{
+				r = GameStatus.WHITEWINS;
+			}
+		}
+		
 		return r;
 	}
 }

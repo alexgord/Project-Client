@@ -35,10 +35,6 @@ public class Player
 							System.out.println("Move is valid, hooraayy!");
 							return move;
 						}
-						else
-						{
-							System.out.println("Sorry, that piece cannot move there");
-						}
 					}
 					else
 					{

@@ -11,16 +11,16 @@ public class Board
 		board = new Piece[6][6];
 		graveyard = new ArrayList<Piece>();
 		
-		int count = 0;
 		Piece temp;
-		while (count < 6)
+		//Place all the pawns on the board
+		for (int count = 0; count < 6; count++)
 		{
 			temp = new Piece(ColorEnum.BLACK, PieceEnum.PAWN);
 			board[1][count] = temp;
 			temp = new Piece(ColorEnum.WHITE, PieceEnum.PAWN);
 			board[4][count] = temp;
-			count++;
 		}
+		//Place all the knights on the board
 		temp = new Piece(ColorEnum.BLACK, PieceEnum.KNIGHT);
 		board[0][1] = temp;
 		board[0][4] = temp;
@@ -78,11 +78,15 @@ public class Board
 
 	public void movePiece(Move move)
 	{
+		//If a piece is being captured
 		if (board[move.getB().getRow()][move.getB().getCollumn()] != null)
 		{
+			//Transfer it to the graveyard
 			graveyard.add(board[move.getB().getRow()][move.getB().getCollumn()]);
 		}
+		//Move the piece to its destination
 		board[move.getB().getRow()][move.getB().getCollumn()] = board[move.getA().getRow()][move.getA().getCollumn()];
+		//Erase the piece from its previous position
 		board[move.getA().getRow()][move.getA().getCollumn()] = null;
 	}
 }
