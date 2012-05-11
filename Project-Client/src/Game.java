@@ -103,11 +103,13 @@ public class Game
 			}
 		}
 		
-		if (numDeadWhitePawns == 6 || numDeadBlackPawns == 6)
+		if (numDeadWhitePawns == 6 && numDeadBlackPawns == 6)
 		{
 			r = true;
 		}
 		
+		
+		//Do both players have at least one piece?
 		return r;
 	}
 }
