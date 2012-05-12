@@ -1,3 +1,10 @@
+/**********************************BoardPosition CLASS INFO*****************************************
+
+This class is responsible for getting and setting the rows and columns of a specific piece.  It 
+Also can check if the coordinates are out of bounds and return a string of all the column headings.
+
+**************************************************************************************************/
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

@@ -1,3 +1,11 @@
+/**********************************Player CLASS INFO**********************************************
+
+This class is responsible for creating the player, making a move and checking whether it is a 
+valid move, and to respond appropriately in each case.  It is also reponsible for getting the move
+from the client and for getting a list of the column headers, as well as the color.  
+
+**************************************************************************************************/
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +29,7 @@ public class Player
 		while (true)
 		{
 			move = getMove();
+			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 			//If we're trying to move from positions that are actually in the board
 			if (!(move.getA().isOutOfBounds() || move.getB().isOutOfBounds()))
 			{
@@ -30,8 +39,10 @@ public class Player
 					//If we're trying to move a piece that isn't ours
 					if (board.getBoard()[move.getA().getRow()][move.getA().getCollumn()].getColor() == this.color)
 					{
+						//Is the move valid?
 						if (PieceCanMove(board.getBoard()[move.getA().getRow()][move.getA().getCollumn()], move, board))
 						{
+							
 							System.out.println("Move is valid, hooraayy!");
 							return move;
 						}
@@ -51,6 +62,7 @@ public class Player
 				System.out.println("Sorry, the position isn't within the board");
 			}
 			System.out.println("You must re-enter your move");
+			System.out.println(board.toString());
 		}
 	}
 

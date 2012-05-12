@@ -1,3 +1,9 @@
+/**********************************Piece CLASS INFO************************************************
+
+This class is responsible for creating and getting a piece, getting the color, and getting the 
+string of the piece for the board (ex. WK).  
+
+**************************************************************************************************/
 
 public class Piece
 {

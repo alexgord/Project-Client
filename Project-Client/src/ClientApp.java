@@ -1,10 +1,25 @@
+/**************************************ID BLOCK*******************************************************
+
+Due Date:			May 11th, 2012
+Software Designers:	Alexandre Simard & Peter Johnston
+Course:				420-603  Winter 2012
+Deliverable:		Project --- Knight's Watch --- Client
+Description:		This program creates a game, connects to the server, and if it is the first of 
+					two players, it waits until the server sends the number of players.  When this 
+					occurs, the game commences.  Depending on who connected first, the client is 
+					either assigned White (P1), or Black (P2).  The Client then sends their move, or
+					waits to receive the opponent's move from the server.  When the client sends a 
+					move, it is then checked by the client to see if it is a valid move.  If so, 
+					the move is transmitted to the server.  When the current client determines that 
+					the game is over, it broadcasts the outcome, and the program is ended.  
+					
+******************************************************************************************************/
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 
 public class ClientApp
@@ -40,7 +55,6 @@ public class ClientApp
 			String playerNum = (String) socketIn.readObject();
 			System.out.println("You are player number : " + playerNum);
 			// prepare STDIN for reading
-			Scanner stdin = new Scanner(System.in);
 			String oppositePlayerNum = (playerNum.equals("1"))?"2":"1";
 
 			System.out.println("You are player" + playerNum + ", your color is: " + ((playerNum.equals("1"))?"white":"black"));
@@ -53,6 +67,7 @@ public class ClientApp
 				System.out.println("Waiting for player" + oppositePlayerNum + " to make his move...");
 				enemyMove = (Move) socketIn.readObject();
 				// print to STDOUT
+				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				System.out.println("Enemy has made this move: From " + enemyMove.getA().toString() + " to " + enemyMove.getB().toString());
 				game1.getBoard().movePiece(enemyMove);
 				System.out.println(game1.getBoard().toString());
@@ -74,6 +89,7 @@ public class ClientApp
 					// receive the enemy move
 					System.out.println("Waiting for player" + oppositePlayerNum + " to make his move...");
 					enemyMove = (Move) socketIn.readObject();
+					System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 					System.out.println("Enemy has made this move: From " + enemyMove.getA().toString() + " to " + enemyMove.getB().toString());
 					game1.getBoard().movePiece(enemyMove);
 					System.out.println(game1.getBoard().toString());

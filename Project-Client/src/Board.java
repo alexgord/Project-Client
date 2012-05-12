@@ -1,3 +1,10 @@
+/**********************************Board CLASS INFO************************************************
+
+This class is responsible for creating, getting, and setting the board and the piece graveyard, getting and
+setting the graveyard, outputting the board as a string, and moving pieces.  
+
+**************************************************************************************************/
+
 import java.util.ArrayList;
 
 

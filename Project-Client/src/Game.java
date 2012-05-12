@@ -1,3 +1,10 @@
+/**********************************Game CLASS INFO************************************************
+
+This class is responsible for setting the current player, getting and setting the players, 
+starting the game, getting the board, making the player moves, and determining the current status
+of the game.  
+
+**************************************************************************************************/
 
 public class Game
 {
